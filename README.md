@@ -94,7 +94,7 @@ To reattached and detach screens just use:
 
 ## Alternative splicing analyses
 
-Microexonator can couple the annotation and quantification of microexon with other downstream tools to asses alternative splicing changing. We have incorporated [whippet](https://github.com/timbitz/Whippet.jl) into a downstream snakemake workflow that can directly use the microexon annotation and quantification files to assess differential inclusion of microexons between multiple conditions. For this porpuse we recomend to install a custumised conda enviroment that has snkamemake and julia 0.6.1 installed. This can be don by using the following command from inside a MicroExonator folder:
+Microexonator can couple the annotation and quantification of microexon with other downstream tools to asses alternative splicing changing. We have incorporated [whippet](https://github.com/timbitz/Whippet.jl) into a downstream snakemake workflow that can directly use the microexon annotation and quantification files to assess differential inclusion of microexons between multiple conditions. For this purpose we recomend to install a custumised conda enviroment that has snkamemake and julia 0.6.1 installed. This can be don by using the following command from inside a MicroExonator folder:
 
 `conda env create -f Whippet/julia_0.6.1.yaml`
 
@@ -133,7 +133,7 @@ Then we recomend to do a `dry-run` to check that all the inputs are in place:
     snakemake -s MicroExonator.skm  --cluster-config cluster.json --cluster {cluster system params} --use-conda -k  -j {number of parallel jobs} differential_inclusion -np
     
  
-**Importat**: If you arlready run MicroExonator quantification and discovery, and now you want to perform the these downstream alternative splicing analyses, you might need to skip microexonator steps to avoid them be re-run. To only perfom downstream alternative splicing analyses, you will need to include these extra key in config.yaml:
+**Important**: If you arlready run MicroExonator quantification and discovery, and now you want to perform the these downstream alternative splicing analyses, you might need to skip microexonator steps to avoid them be re-run. To only perfom downstream alternative splicing analyses, you will need to include these extra key in config.yaml:
 
     downstream_only : T
 
@@ -157,6 +157,11 @@ If you do this, you will schedule processes that are related with `whippet` inde
 After you are sure everthing is in place, you can sumbit the runnig command:
 
     snakemake -s MicroExonator.skm  --cluster-config cluster.json --cluster {cluster system params} --use-conda -k  -j {number of parallel jobs} differential_inclusion
+
+## Using MicroExonator on single-cell RNAseq data
+
+MicroExonator can also allow you to identify microexons and identify patterns of alternative splicing changes using [whippet](https://github.com/timbitz/Whippet.jl) in scRNAseq data. Importantly, we have only applied MicroExonator to full-length scRNAseq data (SMART-seq2 in particular). This is because full-length scRNAseq data provides more information to resolve splicing changes as well as due to the accuracy of bulk RNAseq tools for alternative splicing identification being [benchmarked by our group before](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1571-5) and showed promising results. 
+
 
 
 # Troubleshooting
